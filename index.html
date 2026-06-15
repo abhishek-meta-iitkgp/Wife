@@ -1,220 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>For Richa ❤️</title>
-
 <style>
-
+*{box-sizing:border-box}
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#ffe6f0,#fff7fb);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-overflow:hidden;
-}
-
+margin:0;font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#ffdce8,#fff6fb,#fff0f5);
+display:flex;justify-content:center;align-items:center;
+height:100vh;overflow:hidden}
 .card{
-background:white;
-padding:40px;
-width:90%;
-max-width:450px;
+position:relative;z-index:5;
+background:rgba(255,255,255,.95);
+backdrop-filter:blur(10px);
+padding:35px;width:92%;max-width:500px;
 border-radius:25px;
-box-shadow:0 10px 30px rgba(0,0,0,.15);
+box-shadow:0 15px 40px rgba(0,0,0,.18);
 text-align:center;
-animation:fade .6s;
-}
-
-@keyframes fade{
-from{opacity:0;transform:scale(.9);}
-to{opacity:1;transform:scale(1);}
-}
-
-h1{
-color:#ff4d88;
-}
-
+transition:all .45s ease}
+.fadeOut{opacity:0;transform:translateY(20px) scale(.95)}
+.fadeIn{opacity:1;transform:translateY(0) scale(1)}
 button{
-padding:14px 30px;
-font-size:18px;
-border:none;
-border-radius:30px;
-margin:10px;
-cursor:pointer;
-transition:.3s;
-}
-
-.yes{
-background:#ff4d88;
-color:white;
-}
-
-.no{
-background:#ddd;
-}
-
-.yes:hover{
-transform:scale(1.05);
-}
-
-.option{
-display:block;
-width:100%;
-margin:12px 0;
-background:#ffe6f0;
-}
-
-input{
-padding:12px;
-width:80%;
-margin:10px;
-font-size:18px;
-border-radius:10px;
-border:1px solid #ccc;
-}
-
+padding:14px 28px;margin:10px;border:none;border-radius:35px;
+cursor:pointer;font-size:17px;font-weight:bold;
+box-shadow:0 8px 18px rgba(255,77,136,.3);
+transition:.3s}
+button:hover{transform:translateY(-2px) scale(1.03)}
+.yes{background:#ff4d88;color:#fff}
+.no{background:#ddd}
+.option{display:block;width:100%;background:#ffe6f0}
+input{padding:12px;width:80%;margin:10px;border-radius:10px;border:1px solid #ccc}
+.float{position:fixed;bottom:-40px;pointer-events:none;animation:fly 8s linear forwards}
+@keyframes fly{to{transform:translateY(-120vh);opacity:0}}
+.photo{
+width:120px;height:120px;border-radius:50%;
+margin:15px auto;border:5px solid #ff4d88;
+display:flex;align-items:center;justify-content:center;
+font-size:48px;background:#fff0f5}
+#musicBtn{position:fixed;top:15px;right:15px}
 </style>
-
 </head>
-
 <body>
 
-<div class="card" id="card">
+<button id="musicBtn">🎵 Play Music</button>
 
+<audio id="bgm" loop>
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8b4a61d77.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card fadeIn" id="card">
 <h1>Hi Richa 🌸</h1>
-
 <h2>I have something to ask 😊</h2>
-
 <button class="yes" onclick="screen2()">Continue ❤️</button>
-
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script>
+const card=document.getElementById("card");
+const bgm=document.getElementById("bgm");
 
-let card=document.getElementById("card");
+document.getElementById("musicBtn").onclick=()=>{
+ if(bgm.paused){bgm.play();musicBtn.innerHTML="⏸ Pause Music";}
+ else{bgm.pause();musicBtn.innerHTML="🎵 Play Music";}
+};
+
+setInterval(()=>{
+ let e=document.createElement("div");
+ e.className="float";
+ e.innerHTML=["❤️","🌸","✨"][Math.floor(Math.random()*3)];
+ e.style.left=Math.random()*100+"vw";
+ e.style.fontSize=(18+Math.random()*18)+"px";
+ document.body.appendChild(e);
+ setTimeout(()=>e.remove(),8000);
+},700);
+
+function show(html){
+ card.classList.add("fadeOut");
+ setTimeout(()=>{
+   card.innerHTML=html;
+   card.classList.remove("fadeOut");
+ },350);
+}
 
 function screen2(){
-
-card.innerHTML=`
-
+show(`
 <h1>🌸</h1>
-
 <h2>Would you like to go on our first official date before our engagement? ❤️</h2>
-
 <button class="yes" onclick="screen3()">YES ❤️</button>
-
-<button class="no" id="noBtn">No 🙈</button>
-
-`;
-
-let no=document.getElementById("noBtn");
-
-no.addEventListener("mouseover",function(){
-
-this.style.position="absolute";
-
-this.style.left=Math.random()*70+"%";
-
-this.style.top=Math.random()*70+"%";
-
-});
-
+<button class="no" id="noBtn">No 🙈</button>`);
+setTimeout(()=>{
+ let no=document.getElementById("noBtn");
+ no.onmouseover=()=>{
+ no.style.position="absolute";
+ no.style.left=(30+Math.random()*250)+"px";
+ no.style.top=(80+Math.random()*180)+"px";
+ };
+},360);
 }
 
 function screen3(){
-
-card.innerHTML=`
-
+confetti({particleCount:180,spread:140});
+show(`
 <h1>🥳❤️</h1>
-
-<h2>Yay!!</h2>
-
+<div class="photo">❤️</div>
+<h3>You + Richa</h3>
 <p>I was secretly hoping you'd say YES 😄</p>
-
-<button class="yes" onclick="screen4()">Let's Plan →</button>
-
-`;
-
+<button class="yes" onclick="screen4()">Let's Plan →</button>`);
 }
 
 function screen4(){
-
-card.innerHTML=`
-
+show(`
 <h2>📅 When are you free?</h2>
-
 <input type="date" id="date"><br>
-
 <input type="time" id="time"><br>
-
-<button class="yes" onclick="screen5()">Next ❤️</button>
-
-`;
-
+<button class="yes" onclick="screen5()">Next ❤️</button>`);
 }
 
 function screen5(){
-
-card.innerHTML=`
-
+let d=document.getElementById("date").value;
+let t=document.getElementById("time").value;
+if(!d){alert("Please choose a date ❤️");return;}
+if(!t){alert("Please choose a time ❤️");return;}
+localStorage.setItem("date",d);
+localStorage.setItem("time",t);
+show(`
 <h2>🍽️ What are we feeling?</h2>
-
 <button class="option" onclick="finish('Coffee ☕')">Coffee ☕</button>
-
 <button class="option" onclick="finish('Movie 🎬')">Movie 🎬</button>
-
 <button class="option" onclick="finish('Dinner 🍽️')">Dinner 🍽️</button>
-
 <button class="option" onclick="finish('Dessert 🍨')">Dessert 🍨</button>
-
-<button class="option" onclick="finish('Long Walk 🚶‍♂️')">Long Walk 🚶‍♂️</button>
-
-`;
-
+<button class="option" onclick="finish('Long Walk 🚶')">Long Walk 🚶</button>`);
 }
 
-function finish(food){
-
-let date=document.getElementById("date")?.value;
-
-let time=document.getElementById("time")?.value;
-
-card.innerHTML=`
-
+function finish(plan){
+const d=localStorage.getItem("date");
+const t=localStorage.getItem("time");
+localStorage.setItem("plan",plan);
+show(`
 <h1>❤️</h1>
-
 <h2>Perfect!</h2>
+<p><b>Date:</b> ${d}<br><br>
+<b>Time:</b> ${t}<br><br>
+<b>Plan:</b> ${plan}</p>
 
 <p>
-
-Date: <b>${date}</b><br><br>
-
-Time: <b>${time}</b><br><br>
-
-Plan: <b>${food}</b>
-
+Every beautiful journey starts with one special moment.<br><br>
+Thank you for saying <b>YES ❤️</b><br><br>
+I can't wait to spend this day with you and create countless memories together.
 </p>
 
-<p>
-
-Looking forward to spending some quality time with you 😊
-
-</p>
-
-<h3>~ Abhishek ❤️</h3>
-
-`;
-
+<button class="yes" onclick="reveal()">Reveal the Surprise 🎁</button>
+`);
 }
 
+function reveal(){
+show(`
+<h1>🎉 Surprise!</h1>
+<h2>Our First Official Date</h2>
+<p style="font-size:20px">
+🍽️ <b>The Big Barbeque</b><br><br>
+📍 Bangalore
+</p>
+
+<p>I can't wait to see you there ❤️</p>
+
+<h3>Forever Yours,<br>Abhishek ❤️</h3>
+`);
+}
 </script>
-
 </body>
-
 </html>
